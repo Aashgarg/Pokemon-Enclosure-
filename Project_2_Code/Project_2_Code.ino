@@ -15,7 +15,7 @@ void loop() {
 }
 
 void ashRunning(){
-  if (ashSwitch == LOW){
+  if (digitalRead(ashSwitch) == LOW){
     Serial.println("ash moves");
   }
   else{
