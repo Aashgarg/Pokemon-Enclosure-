@@ -1,15 +1,25 @@
+
+const int ashSwitch = 7;
+
 void setup() {
   // put your setup code here, to run once:
-  Seraial.begin(9600);
+  Serial.begin(9600);
   Serial.println("This is a test");
+  pinMode(ashSwitch, INPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println("Merging testing again")
+  Serial.println("Merging testing again");
 }
 
 void ashRunning(){
+  if (ashSwitch == LOW){
+    Serial.println("ash moves");
+  }
+  else{
+    Serial.println("ash is still");
+  }
   // pikachu gets off switch and servo with ash goes around
 }
 
