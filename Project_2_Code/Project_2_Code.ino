@@ -1,34 +1,64 @@
+#include <Servo.h>
 
 const int ashSwitch = 7;
+const int trSwitch = 6;
+const int nurseSwitch = 5;
+const int stretchSwitch = 4;
+const int nurseEmojiSwitch = 3;
+int buttonState = 0;
+int previousButtonState = 1;
+Servo ashServo;
+Servo nurseServo;
+Servo nurseEmojiServo
+Servo trServo;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("This is a test");
   pinMode(ashSwitch, INPUT);
+  pinMode(trSwitch, INPUT);
+  pinMode(nurseSwitch, INPUT);
+  pinMode(stetchSwitch, INPUT);
+  pinMode(nurseEmojiSwitch, INPUT);
+  ashServo.attach(9);
+  trServo.attach(10);
+  nurseServo.attach(11);
+  Serial.begin(9600);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println("Merging testing again");
   ashRunning();
+  teamRocket();
+  nurseReveal();
 }
 
 void ashRunning(){
-  if (digitalRead(ashSwitch) == LOW){
-    Serial.println("ash moves");
+  buttonState = digitalRead(ashSwitch);
+  if (buttonState == LOW){
+    ashServo.write(60);
   }
   else{
-    Serial.println("ash is still");
+    ashServo.write(90);
   }
   // pikachu gets off switch and servo with ash goes around
 }
 
 void nurseReveal(){
-  //pikachu gets placed near entrance and nurse joy comes up
+  buttonState = digitalRead(nurseSwitch);
+  if (buttonState == HIGH){
+    nurseServo.write(90);
+  }
+  else{
+    nurseServo.write(0);
+  }
+  //Ash gets placed near entrance and nurse joy comes up
 }
 
 void pikachuStretcher(){
+  buttonState = digitalRead (stretcherSwitch);
+   if (buttonState == HIGH){
+    //lights go green
+   }
   //pikachu gets placed on stretcher and green leds light up to guide user to push stretcher
 }
 
@@ -41,5 +71,15 @@ void panic(){
 }
 
 void teamRocket(){
+  buttonState = digitalRead(trSwitch);
+  
+  if (buttonState == HIGH){
+    trServo.write(90);
+  }
+  else{
+    delay(200);
+    Serial.print("yo");
+    trServo.write(0);
+  }
   //pikachu goes around to explosion and when goes on switch team rocket goes up on top with team rocket theme on piezo
 }
