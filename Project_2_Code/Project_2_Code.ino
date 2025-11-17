@@ -12,7 +12,7 @@ int buttonState = 0;
 int previousButtonState = 1;
 Servo ashServo;
 Servo nurseServo;
-Servo nurseEmojiServo
+Servo nurseEmojiServo;
 Servo trServo;
 
 void setup() {
@@ -20,7 +20,7 @@ void setup() {
   pinMode(ashSwitch, INPUT);
   pinMode(trSwitch, INPUT);
   pinMode(nurseSwitch, INPUT);
-  pinMode(stetchSwitch, INPUT);
+  pinMode(stretchSwitch, INPUT);
   pinMode(nurseEmojiSwitch, INPUT);
   pinMode(greenLightOne, OUTPUT);
   pinMode(greenLightTwo, OUTPUT);
@@ -37,15 +37,15 @@ void loop() {
   // put your main code here, to run repeatedly:
   ashRunning();
   nurseReveal();
-  pikachuStretcher()
-  nurseGoesYay()
-  panic()
+  pikachuStretcher();
+  nurseGoesYay();
+  panic();
   teamRocket();
 }
 
 void ashRunning(){
   buttonState = digitalRead(ashSwitch);
-  if (buttonState == LOW){
+  if (buttonState == HIGH){
     ashServo.write(60);
   }
   else{
@@ -67,9 +67,10 @@ void nurseReveal(){
 }
 
 void pikachuStretcher(){
-  buttonState = digitalRead(stretcherSwitch);
+  buttonState = digitalRead(stretchSwitch);
    if (buttonState == HIGH){
     digitalWrite(greenLightOne, HIGH);
+    Serial.println("yay");
    }
    else{
     digitalWrite(greenLightOne, LOW);
@@ -91,12 +92,12 @@ void nurseGoesYay(){
 }
 
 void panic(){
-  buttonState = digitalRead(nurseEmojiSwitch)
-  if (buttonState == LOW && digitalRead(greenLight) == HIGH){
-    digitalWrite(redLight, HIGH)
+  buttonState = digitalRead(nurseEmojiSwitch);
+  if (buttonState == LOW && digitalRead(greenLightTwo) == HIGH){
+    digitalWrite(redLight, HIGH);
   }
   else{
-    digitalWrite(redLight, LOW)
+    digitalWrite(redLight, LOW);
   }
   //pikachu goes on exit switch and red leds light up, nurse goes oh no
 }
@@ -109,7 +110,6 @@ void teamRocket(){
   }
   else{
     delay(200);
-    Serial.print("yo");
     trServo.write(0);
   }
   //pikachu goes around to explosion and when goes on switch team rocket goes up on top with team rocket theme on piezo
