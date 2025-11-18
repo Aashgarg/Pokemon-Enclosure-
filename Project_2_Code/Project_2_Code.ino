@@ -6,8 +6,8 @@ const int nurseSwitch = 5;
 const int stretchSwitch = 4;
 const int nurseEmojiSwitch = 3;
 const int greenLightOne = 13;
-const int greenLightTwo = 2;
-const int redLight = 8;
+const int greenLightTwo = 8;
+const int redLight = 2;
 int buttonState = 0;
 int previousButtonState = 1;
 Servo ashServo;
@@ -39,14 +39,14 @@ void loop() {
   nurseReveal();
   pikachuStretcher();
   nurseGoesYay();
-  panic();
+  //panic();
   teamRocket();
 }
 
 void ashRunning(){
   buttonState = digitalRead(ashSwitch);
-  if (buttonState == HIGH){
-    ashServo.write(60);
+  if (buttonState == LOW){
+    ashServo.write(90);
   }
   else{
     ashServo.write(90);
@@ -57,8 +57,7 @@ void ashRunning(){
 void nurseReveal(){
   buttonState = digitalRead(nurseSwitch);
   if (buttonState == HIGH){
-    ashServo.write(90);
-    nurseServo.write(90);
+    nurseServo.write(80);
   }
   else{
     nurseServo.write(0);
@@ -70,7 +69,7 @@ void pikachuStretcher(){
   buttonState = digitalRead(stretchSwitch);
    if (buttonState == HIGH){
     digitalWrite(greenLightOne, HIGH);
-    Serial.println("yay");
+    //Serial.println("yay");
    }
    else{
     digitalWrite(greenLightOne, LOW);
@@ -82,10 +81,11 @@ void nurseGoesYay(){
   buttonState = digitalRead(nurseEmojiSwitch);
 
   if (buttonState == HIGH){
-     digitalWrite(greenLightTwo, HIGH);
+    nurseEmojiServo.write(100);
   }
   else{
-    digitalWrite(greenLightTwo, LOW);
+    nurseEmojiServo.write(90);
+    panic();
   }
   
   //stretcher finishes it's round and nurse goes thumbs up and points to exit!
@@ -93,11 +93,12 @@ void nurseGoesYay(){
 
 void panic(){
   buttonState = digitalRead(nurseEmojiSwitch);
-  if (buttonState == LOW && digitalRead(greenLightTwo) == HIGH){
-    digitalWrite(redLight, HIGH);
+  if (buttonState == LOW){
+    digitalWrite(greenLightTwo, HIGH);
+    //print("yay")
   }
   else{
-    digitalWrite(redLight, LOW);
+    digitalWrite(greenLightTwo, LOW);
   }
   //pikachu goes on exit switch and red leds light up, nurse goes oh no
 }
