@@ -92,7 +92,7 @@ void ashRunning(){
 void nurseReveal(){
   buttonState = digitalRead(nurseSwitch);
   if (buttonState == HIGH){
-    nurseServo.write(80);
+    nurseServo.write(90);
     ashServo.write(90);
     stateThree = true;
   }
@@ -138,7 +138,7 @@ void teamRocket(){
   buttonState = digitalRead(trSwitch);
   
   if (buttonState == HIGH){
-    trServo.write(90);
+    trServo.write(180);
     ashServo.write(90);
   }
   else{
